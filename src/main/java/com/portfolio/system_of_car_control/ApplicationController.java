@@ -14,9 +14,37 @@ public class ApplicationController {
         return "index";
     }
 
-    @GetMapping("/widgets")
+    @GetMapping("/fleet")
+    public String fleet(){
+        return "/fleet/index";
+    }
+
+    @GetMapping("/accounts")
+    public String account(){
+        return "/accounts/index";
+    }
+
+
+    @GetMapping("/hr")
     public String widget(){
-        return "widgets";
+        return "/hr/index";
+    }
+
+
+    @GetMapping("/helpdesk")
+    public String helpdesk(){
+        return "/helpdesk/index";
+    }
+
+
+    @GetMapping("/parameters")
+    public String param(){
+        return "/parameters/index";
+    }
+
+    @GetMapping("/payroll")
+    public String payroll(){
+        return "/payroll/index";
     }
 
 
