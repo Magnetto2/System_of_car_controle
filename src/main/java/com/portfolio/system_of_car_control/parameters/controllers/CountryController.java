@@ -6,9 +6,7 @@ import com.portfolio.system_of_car_control.parameters.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,7 +18,6 @@ public class CountryController {
 
 
     @GetMapping("/countries")
-
     public String getAll(Model model){
 
          List<Country> countries = countryService.getAll();
@@ -31,12 +28,19 @@ public class CountryController {
     }
 
 
-    @GetMapping("/countryAdd")
+    @GetMapping("parameters/countryAdd")
     public String addCountry(){
-
-
         return "parameters/countryAdd";
     }
+
+    @GetMapping("/countryEdit/{id}")
+    public String editCountry(@PathVariable Integer id, Model model){
+        Country country = countryService.findById(id);
+        model.addAttribute("country", country);
+
+        return "parameters/countryEdit";
+    }
+
 
 
     @PostMapping("/countries")
@@ -44,6 +48,28 @@ public class CountryController {
         countryService.save(country);
         return "redirect:/countries";
     }
+
+    @RequestMapping(value = "/countries/delete/{id}", method ={RequestMethod.GET, RequestMethod.DELETE})
+    public String delete(@PathVariable Integer id){
+        countryService.delete(id);
+        return "redirect:/countries";
+    }
+
+    @RequestMapping(value = "/countries/update/{id}", method ={RequestMethod.GET, RequestMethod.PUT})
+    public String update(Country country){
+        countryService.save(country);
+        return "redirect:/countries";
+    }
+
+
+    @GetMapping("/countryDetails/{id}")
+    public String detailsCountry(@PathVariable Integer id, Model model){
+        Country country = countryService.findById(id);
+        model.addAttribute("country", country);
+
+        return "parameters/countryDetails";
+    }
+
 
 
 
